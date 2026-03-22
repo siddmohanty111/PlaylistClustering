@@ -42,7 +42,7 @@ success = False
 while retries < max_retries and not success:
     try:
         print(f"Attempt {retries + 1}/{max_retries} to convert JSON to CSV...")
-        convert_json_to_csv(RAW_JSON_DATA_PATH, PROCESSED_DATA_DIR)
+        convert_json_to_csv(RAW_JSON_DATA_PATH, os.path.join(PROCESSED_DATA_DIR, 'csvs'))
         success = True
         print("JSON to CSV conversion completed successfully.\n")
     except OSError as e:
@@ -93,32 +93,3 @@ embeds_to_save = {
 with open(EMBEDDINGS_FILE, 'wb') as f:
     pickle.dump(embeds_to_save, f)
 print(f"Saved embeddings to {EMBEDDINGS_FILE}\n")
-
-
-# =============================================================================
-# 4. CLUSTERING
-# =============================================================================
-print("--- Starting Clustering ---")
-
-# Load Embeddings
-with open(EMBEDDINGS_FILE, 'rb') as f:
-    embeds_full = pickle.load(f)
-
-# Truncate embeds for faster runtimes
-truncation_ratio = 0.01
-embeds = {k: v[:int(len(v) * truncation_ratio)] for k, v in embeds_full.items()}
-
-playlist_embeddings = embeds["playlist_embeddings"]
-playlist_titles = embeds["playlist_titles"]
-playlist_tracks = embeds["playlist_tracks"]
-
-# Run clustering for multiple cluster counts
-for i in range(10, 200, 10):
-    output_clusters_csv = os.path.join(PROCESSED_DATA_DIR, f"calced_clusters/{i}")
-    os.makedirs(output_clusters_csv, exist_ok=True)
-    cluster_csv_path = os.path.join(output_clusters_csv, "clusters.csv")
-    
-    print(f"Clustering with {i} clusters...")
-    cluster_playlists(playlist_embeddings, i, playlist_titles, playlist_tracks, cluster_csv_path)
-
-print("\nPipeline execution complete!")
