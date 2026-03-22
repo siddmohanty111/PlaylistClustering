@@ -9,11 +9,11 @@ There are steps to follow before you run any code so that the data lives in an a
 
 ## How to use this repository:
 
-The setup code in this repository is designed to be run on Google Colab. IF YOU DO NOT ALREADY HAVE THE CSVS 
+The setup code in this repository is designed to be run on Google Colab. IF YOU DO NOT ALREADY HAVE THE CSVs 
 AND EMBEDDINGS, please follow the steps below to create a csv of the MPD data and create your embeddings with
 your encoding model of choice:
 
-- Create a Google Colab notebook, and run the following code in the first cell:
+- Create a Google Colab notebook, and run the following code in the first and second cells:
 
 ```python
 import sys
