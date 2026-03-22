@@ -34,3 +34,8 @@ from google.colab import drive
 - Run json_to_csv.ipynb (GPU Runtime not needed). This will turn the raw MPD json data into csv form
 - Run create_embeddings.ipynb (GPU Runtime necessary for quick embedding generation). This uses Sentence BERT (all-MiniLM-L6-v2 by default) to create embeddings. 
 - When you are finished with your work on the notebook, navigate to File -> Save a copy on GitHub
+
+## Acknowledgements
+
+Portions of the code and concepts in this repository were adapted from the [LLM-Playlist-Recommender](https://github.com/elea-vellard/LLM-Playlist-Recommender) project by Elea Vellard. We thank them for their open-source contributions.
+
