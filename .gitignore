@@ -1,0 +1,18 @@
+# Directory
+.db
+.idea
+.data
+.vscode
+*.logs
+
+# File
+.env
+.~lock.*#
+.venv
+
+# Extensions
+*.sqlite*
+
+# Data
+.csv
+.pkl
