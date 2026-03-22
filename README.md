@@ -1,4 +1,4 @@
-## If you are a collaborator:
+## IMPORTANT - If you are a collaborator:
 
 There are steps to follow before you run any code so that the data lives in an accessible place for all of us:
 
@@ -13,12 +13,13 @@ The setup code in this repository is designed to be run on Google Colab. IF YOU 
 AND EMBEDDINGS, please follow the steps below to create a csv of the MPD data and create your embeddings with
 your encoding model of choice:
 
-- Create a Google Colab notebook, and run the following code in the first and second cells:
+- Create a Google Colab notebook **with a GPU Runtime** if possible, and run the following code in the first and second cells:
 
 ```python
 import sys
 import importlib
 from google.colab import drive
+drive.mount('/content/drive')
 
 !git clone https://github.com/siddmohanty111/PlaylistClustering.git
 
@@ -28,11 +29,9 @@ from google.colab import drive
 ```
 
 ```shell
-!python parsedata.py
+!python firsttimesetup.py
 ```
 
-- Run json_to_csv.ipynb (GPU Runtime not needed). This will turn the raw MPD json data into csv form
-- Run create_embeddings.ipynb (GPU Runtime necessary for quick embedding generation). This uses Sentence BERT (all-MiniLM-L6-v2 by default) to create embeddings. 
 - When you are finished with your work on the notebook, navigate to File -> Save a copy on GitHub
 
 ## Acknowledgements

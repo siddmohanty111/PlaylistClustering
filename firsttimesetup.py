@@ -11,10 +11,10 @@ from sentence_transformers import SentenceTransformer
 # 1. PATH CONFIGURATION
 # =============================================================================
 
-SHARED_DRIVE_ROOT = '/content/drive/MyDrive/PlaylistClustering'
+SHARED_DRIVE_ROOT = '/content/drive/MyDrive/Spotify Playlist Data'
 
 # Data paths relative to the shared drive root
-RAW_JSON_DATA_PATH = os.path.join(SHARED_DRIVE_ROOT, 'Spotify Playlist Data/playlist_data/data')
+RAW_JSON_DATA_PATH = os.path.join(SHARED_DRIVE_ROOT, 'playlist_data/data')
 PROCESSED_DATA_DIR = os.path.join(SHARED_DRIVE_ROOT, 'Processed Data')
 
 # Specific output files
