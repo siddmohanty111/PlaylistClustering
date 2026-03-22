@@ -22,6 +22,7 @@ from google.colab import drive
 drive.mount('/content/drive')
 
 !git clone https://github.com/siddmohanty111/PlaylistClustering.git
+!git pull
 
 %cd /content/PlaylistClustering
 !pip install -r requirements.txt
