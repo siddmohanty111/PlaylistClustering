@@ -29,6 +29,7 @@ drive.mount('/content/drive')
 ```
 
 ```shell
+!PYTHONPATH=/content/PlaylistClustering:$PYTHONPATH
 !python firsttimesetup.py
 ```
 
