@@ -2,6 +2,7 @@ torch
 numpy
 tqdm
 scikit-learn
+scikit-fuzzy
 setuptools
 sentence-transformers
 transformers
