@@ -4,6 +4,7 @@
 .data
 .vscode
 *.logs
+embedding/
 
 # File
 .env
