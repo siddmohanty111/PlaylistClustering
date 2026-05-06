@@ -82,6 +82,9 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 print("Loaded Sentence-BERT model. Computing embeddings...")
 embeddings = model.encode(titles, show_progress_bar=True)
 
+assert embeddings.shape[1] == 384, f"Expected 384-dim embeddings, got {embeddings.shape[1]}"
+print(f"Embedding dimension verified: {embeddings.shape[1]}")
+
 # Format the embeddings as expected by the downstream clustering script
 embeds_to_save = {
     "playlist_embeddings": embeddings,
