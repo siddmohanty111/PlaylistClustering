@@ -6,13 +6,14 @@ from sentence_transformers import SentenceTransformer
 import random
 import matplotlib.pyplot as plt
 
-
+# remove white space and lowercase
 def normalize_phrase(phrase: str):
     text = unicodedata.normalize("NFKC", phrase)
     text = text.strip().lower()
     text = re.sub(r"\s+", " ", text)
     return text
 
+# return stats about similar embeddings
 def embedding_similarity(pkl_file: str, phrase: str, embedding_type: str = "tracks", topk_playlists: int = 5, topk_songs: int = 10):
 
     phrase = normalize_phrase(phrase)
@@ -30,22 +31,25 @@ def embedding_similarity(pkl_file: str, phrase: str, embedding_type: str = "trac
     if embedding_type == "titles":
         embeddings = data["title_embedding"]
     
-
+    # cosine similarity ordering
     scores = {}
     for pid, embedding in embeddings.items():
         embedding = np.asarray(embedding, dtype=np.float32)
         scores[pid] = float(np.dot(query_embedding, embedding))
 
+    # choose top k similar embeddings
     top = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:topk_playlists]
     sims = [val[1] for val in top]
     playlist_indices = [val[0] for val in top]
 
+    # get tracks from similar embeddings
     tracks = []
     titles = []
     for playlist in top: 
         tracks.extend(data.iloc[playlist[0]]["playlist_tracks"])
         titles.append(data.iloc[playlist[0]]["playlist_title"])
 
+    # shuffle tracks 
     random.shuffle(tracks)
     selected_tracks = tracks[:topk_songs]
 
@@ -60,11 +64,13 @@ def embedding_similarity(pkl_file: str, phrase: str, embedding_type: str = "trac
         "topk_songs": topk_songs,
     }
 
+# lil wrapper to get embedding
 def embed_phrase(phrase: str):
     model = SentenceTransformer("all-MiniLM-L6-v2")
     embedding = model.encode(phrase, normalize_embeddings=True)
     return embedding
 
+# plot results
 def plot_results(results: dict):
     import matplotlib.pyplot as plt
 

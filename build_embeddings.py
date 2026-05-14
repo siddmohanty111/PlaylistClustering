@@ -11,6 +11,7 @@ from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 
 
+# google drive stuff
 DATA_DIR = "data"
 OUTPUT_FILE = "no_norm_embeddings.pkl"
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # 384 dim
@@ -19,21 +20,22 @@ ENCODE_BATCH_SIZE = 512
 MAX_JSON_FILES = None  
 NORMALIZE_EMBEDDINGS = False  
 
-
+# norm an embedding
 def _l2_normalize(vec: np.ndarray) -> np.ndarray:
     norm = np.linalg.norm(vec)
     if norm > 0:
         return vec / norm
     return vec
 
-
+# remove white space and lowercase the text
 def _normalize_title(title: str) -> str:
     text = unicodedata.normalize("NFKC", title)
     text = text.strip().lower()
     text = re.sub(r"\s+", " ", text)
     return text
 
-
+# embed titles
+# in format of {title, title embedding, tracks, track embedding}
 def _process_batch(
     model: SentenceTransformer,
     titles: list[str],
@@ -75,7 +77,7 @@ def _process_batch(
 
     return title_vecs, tracks_embeddings
 
-
+# run with uv run recc_utils.py
 def main() -> None:
     json_files = sorted(glob.glob(os.path.join(DATA_DIR, "**", "*.json"), recursive=True))
     if not json_files:
@@ -83,6 +85,7 @@ def main() -> None:
     if MAX_JSON_FILES is not None:
         json_files = json_files[:MAX_JSON_FILES]
 
+    # for macs
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     model = SentenceTransformer(MODEL_NAME, device=device)
     dim = model.get_sentence_embedding_dimension()
